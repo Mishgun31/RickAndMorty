@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		742D423027459D45005D4443 /* Networker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 742D422F27459D45005D4443 /* Networker.swift */; };
+		74349E99274AB1EF00839E18 /* DetailedCharacterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74349E98274AB1EF00839E18 /* DetailedCharacterViewController.swift */; };
 		74EAD6DA2741E974009BAE17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EAD6D92741E974009BAE17 /* AppDelegate.swift */; };
 		74EAD6DC2741E974009BAE17 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EAD6DB2741E974009BAE17 /* SceneDelegate.swift */; };
 		74EAD6E12741E974009BAE17 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 74EAD6DF2741E974009BAE17 /* Main.storyboard */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		742D422F27459D45005D4443 /* Networker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networker.swift; sourceTree = "<group>"; };
+		74349E98274AB1EF00839E18 /* DetailedCharacterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedCharacterViewController.swift; sourceTree = "<group>"; };
 		74EAD6D62741E974009BAE17 /* RickAndMorty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickAndMorty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		74EAD6D92741E974009BAE17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		74EAD6DB2741E974009BAE17 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				74EAD6EF2741EBD0009BAE17 /* CharacterCollectionViewController.swift */,
+				74349E98274AB1EF00839E18 /* DetailedCharacterViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -198,6 +201,7 @@
 				74EAD6F02741EBD0009BAE17 /* CharacterCollectionViewController.swift in Sources */,
 				74EAD6DA2741E974009BAE17 /* AppDelegate.swift in Sources */,
 				74EAD6DC2741E974009BAE17 /* SceneDelegate.swift in Sources */,
+				74349E99274AB1EF00839E18 /* DetailedCharacterViewController.swift in Sources */,
 				74EAD6F62741FE46009BAE17 /* RickAndMorty.swift in Sources */,
 				74EAD6F32741ED8F009BAE17 /* CharacterCell.swift in Sources */,
 				742D423027459D45005D4443 /* Networker.swift in Sources */,

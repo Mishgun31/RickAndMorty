@@ -22,24 +22,25 @@ class CharacterCollectionViewController: UICollectionViewController {
         setupViewApperance()
         fetchData(with: URLQuery.rickAndMortyAPI.rawValue)
     }
+    
+    // MARK: Navigation
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+        guard let detailedCharacterVC = segue.destination as?
+                DetailedCharacterViewController else { return }
+        guard let itemNumber = sender as? Int else { return }
+        detailedCharacterVC.character = rickAndMorty?.results?[itemNumber]
     }
-    */
 
     // MARK: UICollectionViewDataSource
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 numberOfItemsInSection section: Int) -> Int {
         rickAndMorty?.results?.count ?? 0
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView
                 .dequeueReusableCell(
                     withReuseIdentifier: "CharacterCell",
@@ -54,20 +55,60 @@ class CharacterCollectionViewController: UICollectionViewController {
 
     // MARK: UICollectionViewDelegate
     
+    override func collectionView(_ collectionView: UICollectionView,
+                                 didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "detailedCharacter", sender: indexPath.item)
+    }
+    
     // MARK: Private methods
+    
+    @objc private func changePage(_ sender: UIBarButtonItem) {
+        let prevPageQuery = rickAndMorty?.info?.prev
+        let nextPageQuery = rickAndMorty?.info?.next
+        
+        if sender.title == "Next" {
+            fetchData(with: nextPageQuery ?? "")
+        } else {
+            fetchData(with: prevPageQuery ?? "")
+        }
+    }
     
     private func fetchData(with url: String) {
         Networker.shared.fetchData(with: url) { rickAndMorty in
             self.rickAndMorty = rickAndMorty
             self.collectionView.reloadData()
+            self.setPageButtonsAccessibility(with: rickAndMorty.info)
         }
     }
     
     private func setupViewApperance() {
         collectionView.backgroundColor = .clear
+        setupNavigationItem()
+        setNavigationBarTitleColors()
+    }
+    
+    private func setupNavigationItem() {
+        let prevButton = UIBarButtonItem(
+            title: "Previous",
+            style: .plain,
+            target: self,
+            action: #selector(changePage)
+        )
+        let nextButton = UIBarButtonItem(
+            title: "Next",
+            style: .plain,
+            target: self,
+            action: #selector(changePage)
+        )
+        prevButton.tintColor = .white
+        nextButton.tintColor = .white
         
+        navigationItem.setLeftBarButton(prevButton, animated: false)
+        navigationItem.setRightBarButton(nextButton, animated: false)
         navigationItem.title = "Rick And Morty"
-        
+    }
+    
+    private func setNavigationBarTitleColors() {
         if let navigationBar = navigationController?.navigationBar {
             navigationBar.barStyle = .black
             navigationBar.largeTitleTextAttributes = [
@@ -78,28 +119,48 @@ class CharacterCollectionViewController: UICollectionViewController {
             ]
         }
     }
+    
+    private func setPageButtonsAccessibility(with object: Info?) {
+        guard let info = object else { return }
+        switchAccessibility(for: navigationItem.leftBarButtonItem, with: info.prev)
+        switchAccessibility(for: navigationItem.rightBarButtonItem, with: info.next)
+    }
+    
+    private func switchAccessibility(for button: UIBarButtonItem?, with object: String?) {
+        object == nil
+        ? (button?.isEnabled = false)
+        : (button?.isEnabled = true)
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension CharacterCollectionViewController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let paddingWidth = edgeInsets.left * (itemsPerRow + 1)
         let availableWidth = collectionView.frame.width - paddingWidth
         let itemsWidth = availableWidth / itemsPerRow
         return CGSize(width: itemsWidth, height: itemsWidth * 1.5)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
         edgeInsets
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         edgeInsets.left
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         edgeInsets.left
     }
 }
