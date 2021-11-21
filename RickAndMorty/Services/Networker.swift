@@ -33,4 +33,16 @@ class Networker {
             }
         }.resume()
     }
+    
+    func fetchImage(with url: String, comletion: @escaping (Data) -> Void) {
+        guard let url = URL(string: url) else { return }
+        
+        DispatchQueue.global().async {
+            guard let imageData = try? Data(contentsOf: url) else { return }
+            
+            DispatchQueue.main.async {
+                comletion(imageData)
+            }
+        }
+    }
 }

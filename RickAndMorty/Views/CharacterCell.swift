@@ -12,8 +12,40 @@ class CharacterCell: UICollectionViewCell {
     @IBOutlet weak var characterImageView: UIImageView!
     @IBOutlet weak var characterNameLabel: UILabel!
     
+    private let cornerRadius: CGFloat = 10
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        layer.shadowPath = UIBezierPath(
+            roundedRect: bounds,
+            cornerRadius: cornerRadius
+        ).cgPath
+        
+        characterImageView.layer.cornerRadius = characterImageView.frame.width / 2
+    }
+    
     func configure(with data: Character) {
-        characterImageView.image = UIImage(named: "SwiftImage")
         characterNameLabel.text = data.name
+        
+        Networker.shared.fetchImage(with: data.image ?? "") { imageData in
+            self.characterImageView.image = UIImage(data: imageData)
+        }
+        setCellAppearance()
+    }
+    
+    private func setCellAppearance() {
+        characterNameLabel.textColor = .white
+        
+        backgroundColor = .black
+        
+        layer.cornerRadius = cornerRadius
+        layer.borderColor = #colorLiteral(red: 0, green: 0.7659460902, blue: 0, alpha: 1)
+        layer.borderWidth = 4
+        
+        layer.shadowRadius = cornerRadius
+        layer.shadowColor = #colorLiteral(red: 0.6937051415, green: 1, blue: 0, alpha: 1)
+        layer.shadowOpacity = 0.5
+        layer.shadowOffset = CGSize(width: 5, height: 5)
+        clipsToBounds = false
     }
 }

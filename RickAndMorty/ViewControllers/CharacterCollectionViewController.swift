@@ -19,6 +19,7 @@ class CharacterCollectionViewController: UICollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupViewApperance()
         fetchData(with: URLQuery.rickAndMortyAPI.rawValue)
     }
 
@@ -59,6 +60,22 @@ class CharacterCollectionViewController: UICollectionViewController {
         Networker.shared.fetchData(with: url) { rickAndMorty in
             self.rickAndMorty = rickAndMorty
             self.collectionView.reloadData()
+        }
+    }
+    
+    private func setupViewApperance() {
+        collectionView.backgroundColor = .clear
+        
+        navigationItem.title = "Rick And Morty"
+        
+        if let navigationBar = navigationController?.navigationBar {
+            navigationBar.barStyle = .black
+            navigationBar.largeTitleTextAttributes = [
+                .foregroundColor: UIColor.white
+            ]
+            navigationBar.titleTextAttributes = [
+                .foregroundColor: UIColor.white
+            ]
         }
     }
 }
