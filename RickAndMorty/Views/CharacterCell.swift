@@ -9,7 +9,7 @@ import UIKit
 
 class CharacterCell: UICollectionViewCell {
     
-    @IBOutlet weak var characterImageView: UIImageView!
+    @IBOutlet weak var characterImageView: CharatcterCellImageView!
     @IBOutlet weak var characterNameLabel: UILabel!
     
     private let cornerRadius: CGFloat = 10
@@ -20,16 +20,11 @@ class CharacterCell: UICollectionViewCell {
             roundedRect: bounds,
             cornerRadius: cornerRadius
         ).cgPath
-        
-        characterImageView.layer.cornerRadius = characterImageView.frame.width / 2
     }
     
     func configure(with data: Character) {
         characterNameLabel.text = data.name
-        
-        Networker.shared.fetchImage(with: data.image ?? "") { imageData in
-            self.characterImageView.image = UIImage(data: imageData)
-        }
+        characterImageView.fetchImage(with: data.image ?? "")
         setCellAppearance()
     }
     

@@ -9,7 +9,7 @@ import UIKit
 
 class DetailedCharacterViewController: UIViewController {
 
-    @IBOutlet weak var characterImageView: UIImageView!
+    @IBOutlet weak var characterImageView: CharacterImageView!
     
     @IBOutlet weak var backgroundView: UIView!
     
@@ -21,14 +21,8 @@ class DetailedCharacterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewAppearance()
-        setImage()
         setLabels()
-    }
-    
-    private func setImage() {
-        Networker.shared.fetchImage(with: character.image ?? "") { imageData in
-            self.characterImageView.image = UIImage(data: imageData)
-        }
+        characterImageView.fetchImage(with: character.image ?? "")
     }
     
     private func setLabels() {

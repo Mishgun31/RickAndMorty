@@ -16,10 +16,13 @@ class CharacterCollectionViewController: UICollectionViewController {
                                           right: 20)
     
     private var rickAndMorty: RickAndMorty?
+    
+    private var activityIndicator = UIActivityIndicatorView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewApperance()
+        activityIndicator = showActivityIndicator()
         fetchData(with: URLQuery.rickAndMortyAPI.rawValue)
     }
     
@@ -77,6 +80,7 @@ class CharacterCollectionViewController: UICollectionViewController {
         Networker.shared.fetchData(with: url) { rickAndMorty in
             self.rickAndMorty = rickAndMorty
             self.collectionView.reloadData()
+            self.activityIndicator.stopAnimating()
             self.setPageButtonsAccessibility(with: rickAndMorty.info)
         }
     }
@@ -102,6 +106,9 @@ class CharacterCollectionViewController: UICollectionViewController {
         )
         prevButton.tintColor = .white
         nextButton.tintColor = .white
+        
+        prevButton.isEnabled = false
+        nextButton.isEnabled = false
         
         navigationItem.setLeftBarButton(prevButton, animated: false)
         navigationItem.setRightBarButton(nextButton, animated: false)
@@ -130,6 +137,15 @@ class CharacterCollectionViewController: UICollectionViewController {
         object == nil
         ? (button?.isEnabled = false)
         : (button?.isEnabled = true)
+    }
+    
+    private func showActivityIndicator() -> UIActivityIndicatorView {
+        let activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator.center = view.center
+        activityIndicator.color = .white
+        activityIndicator.startAnimating()
+        view.addSubview(activityIndicator)
+        return activityIndicator
     }
 }
 

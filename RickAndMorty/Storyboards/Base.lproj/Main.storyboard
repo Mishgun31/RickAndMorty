@@ -32,7 +32,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="178" height="263"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vx2-NE-kB3">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vx2-NE-kB3" customClass="CharatcterCellImageView" customModule="RickAndMorty" customModuleProvider="target">
                                             <rect key="frame" x="10" y="10" width="158" height="158"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="vx2-NE-kB3" secondAttribute="height" multiplier="1:1" id="ecO-4W-7ni"/>
@@ -98,7 +98,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rlA-fC-ZBF">
                                 <rect key="frame" x="20" y="140" width="350" height="350"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DQr-6i-m7e">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DQr-6i-m7e" customClass="CharacterImageView" customModule="RickAndMorty" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="350" height="350"/>
                                     </imageView>
                                 </subviews>
